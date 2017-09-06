@@ -1,59 +1,70 @@
-import React, { Component } from "react";
-import logo from "./capy_angry.png";
-import "./App.css";
-import LetterPicker from "./LetterPicker";
+import React, { Component } from 'react';
+import logo from './capy_angry.png';
+import './App.css';
+import LetterPicker from './LetterPicker';
 
 class App extends Component {
   state = {
-    password: "",
-    username: "",
-    letter: "",
+    password: '',
+    username: '',
+    letter: '',
     goLeft: false,
-    speed: 500
+    speed: 500,
   };
 
   handleLetterChange = letter => {
     this.setState({ letter });
   };
 
-  handleKeyDown = ({ key, target: { name } }) => {
+  handleKeyDown = event => {
+    const { key, target: { name } } = event;
     console.log(key);
 
-    if (key === "ArrowLeft") {
+    if (key !== 'Tab' && key !== 'Enter') {
+      event.preventDefault();
+    }
+
+    if (key === 'ArrowLeft') {
       this.setState({ goLeft: true });
       return;
     }
 
-    if (key === "ArrowRight") {
+    if (key === 'ArrowRight') {
       this.setState({ goLeft: false });
       return;
     }
 
-    if (key === "ArrowUp") {
+    if (key === 'ArrowUp') {
       const newSpeed = Math.max(100, this.state.speed - 100);
       this.setState({ speed: newSpeed });
       return;
     }
 
-    if (key === "ArrowDown") {
+    if (key === 'ArrowDown') {
       const newSpeed = Math.min(800, this.state.speed + 100);
       this.setState({ speed: newSpeed });
       return;
     }
 
-    if (key !== " ") {
+    if (key !== ' ') {
       return;
     }
 
     let newValue;
-    if (this.state.letter === "\u25C0") {
+    if (this.state.letter === '\u25C0') {
       newValue = this.state[name].substring(1);
     } else {
       newValue = this.state.letter + this.state[name];
     }
 
-    this.setState({ [name]: newValue });
+    this.setState({ [name]: newValue }, () =>
+      this[`${name}Ref`].setSelectionRange(0, 0),
+    );
   };
+
+  componentDidMount() {
+    this.usernameRef.focus();
+  }
 
   render() {
     const { password, username, goLeft, speed } = this.state;
@@ -71,6 +82,7 @@ class App extends Component {
               type="text"
               value={username}
               name="username"
+              ref={input => (this.usernameRef = input)}
               onKeyDown={this.handleKeyDown}
               placeholder="Type your username"
             />
@@ -78,6 +90,7 @@ class App extends Component {
               type="password"
               value={password}
               name="password"
+              ref={input => (this.passwordRef = input)}
               onKeyDown={this.handleKeyDown}
               placeholder="Type your password"
             />

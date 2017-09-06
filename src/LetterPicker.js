@@ -59,7 +59,7 @@ class LetterPicker extends Component {
     let { goLeft } = this.state;
 
     // change direction randomly with a low probability
-    if (Math.random() > 0.95) {
+    if (Math.random() > 0.99) {
       goLeft = !goLeft;
     }
 
