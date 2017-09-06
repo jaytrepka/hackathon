@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import LetterPicker from './LetterPicker';
+import React, { Component } from "react";
+import logo from "./capy_angry.png";
+import "./App.css";
+import LetterPicker from "./LetterPicker";
 
 class App extends Component {
   state = {
-    password: '',
-    username: '',
-    letter: '',
+    password: "",
+    username: "",
+    letter: "",
     goLeft: false,
-    speed: 500,
+    speed: 500
   };
 
   handleLetterChange = letter => {
@@ -19,34 +19,34 @@ class App extends Component {
   handleKeyDown = ({ key, target: { name } }) => {
     console.log(key);
 
-    if (key === 'ArrowLeft') {
+    if (key === "ArrowLeft") {
       this.setState({ goLeft: true });
       return;
     }
 
-    if (key === 'ArrowRight') {
+    if (key === "ArrowRight") {
       this.setState({ goLeft: false });
       return;
     }
 
-    if (key === 'ArrowUp') {
+    if (key === "ArrowUp") {
       const newSpeed = Math.max(100, this.state.speed - 100);
       this.setState({ speed: newSpeed });
       return;
     }
 
-    if (key === 'ArrowDown') {
+    if (key === "ArrowDown") {
       const newSpeed = Math.min(800, this.state.speed + 100);
       this.setState({ speed: newSpeed });
       return;
     }
 
-    if (key !== ' ') {
+    if (key !== " ") {
       return;
     }
 
     let newValue;
-    if (this.state.letter === '\u25C0') {
+    if (this.state.letter === "\u25C0") {
       newValue = this.state[name].substring(1);
     } else {
       newValue = this.state.letter + this.state[name];
