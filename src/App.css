@@ -1,9 +1,8 @@
 .App {
+  height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
 .App-logo {
@@ -11,48 +10,56 @@
   height: 80px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.App-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 100px;
+  width: 525px;
+  height: 625px;
+  z-index: 1;
 }
 
 .App-form {
-  display: flex;
-  width: 500px;
-  padding: 30px;
 }
 
 .App-intro {
   font-size: large;
 }
 
-button,
-input {
-  width: 500px;
+h1 {
   color: #333333;
-  font-family: "Avenir Next";
-  font-size: 26px;
-  line-height: 32px;
-  margin: 20px 0;
-  padding: 15px;
-  border-radius: 10px;
-}
-input {
-  border: 1px solid;
-}
-button {
-  border: none;
-  background-color: #68aec9;
-  color: #ffffff;
+  font-size: 30px;
+  line-height: 41px;
+  font-weight: normal;
+  margin-bottom: 40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input,
+button {
+  width: 100%;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 7px;
+  border: none;
+  outline: none;
+  margin-bottom: 20px;
+  padding: 20px 25px;
+}
+
+input {
+  border: 1.45px solid #aab3c0;
+}
+
+input:active,
+input:focus,
+input:hover {
+  border: 1.45px solid #68aec9;
+}
+
+button {
+  background-color: #68aec9;
+  color: #ffffff;
+  margin-top: 20px;
+  cursor: pointer;
 }

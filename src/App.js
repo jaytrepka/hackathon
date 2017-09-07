@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './capy_angry.png';
 import './App.css';
 import LetterPicker from './LetterPicker';
 
@@ -10,6 +9,7 @@ class App extends Component {
     letter: '',
     goLeft: false,
     speed: 500,
+    selectedSentence: 0,
   };
 
   handleLetterChange = letter => {
@@ -46,7 +46,32 @@ class App extends Component {
       return;
     }
 
-    if (key !== ' ') {
+    if ([...'qwert'].indexOf(key) > -1) {
+      this.setState({ selectedSentence: 0 });
+      return;
+    }
+
+    if ([...'yuiop'].indexOf(key) > -1) {
+      this.setState({ selectedSentence: 1 });
+      return;
+    }
+
+    if ([...'asdfg'].indexOf(key) > -1) {
+      this.setState({ selectedSentence: 2 });
+      return;
+    }
+
+    if ([...'hjklnm'].indexOf(key) > -1) {
+      this.setState({ selectedSentence: 3 });
+      return;
+    }
+
+    if ([...'zxcvb'].indexOf(key) > -1) {
+      this.setState({ selectedSentence: 4 });
+      return;
+    }
+
+    if (key !== ' ' && key !== 'Backspace' && key !== 'Delete') {
       return;
     }
 
@@ -67,44 +92,41 @@ class App extends Component {
   }
 
   render() {
-    const { password, username, goLeft, speed } = this.state;
+    const { password, username, goLeft, selectedSentence, speed } = this.state;
 
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Super Hackaton App</h2>
-        </div>
-
-        <div className="App-form">
-          <form autoComplete="off">
-            <input
-              type="text"
-              value={username}
-              name="username"
-              ref={input => (this.usernameRef = input)}
-              onKeyDown={this.handleKeyDown}
-              placeholder="Type your username"
-            />
-            <input
-              type="password"
-              value={password}
-              name="password"
-              ref={input => (this.passwordRef = input)}
-              onKeyDown={this.handleKeyDown}
-              placeholder="Type your password"
-            />
-            <button onClick="">LogIn</button>
-          </form>
-        </div>
-
         <LetterPicker
           onChange={this.handleLetterChange}
           goLeft={goLeft}
           speed={speed}
+          selectedSentence={selectedSentence}
         />
 
-        <div className="hints" />
+        <div className="App-form panel">
+          <h1>Log in if you dare...</h1>
+          <form autoComplete="off">
+            <input
+              type="text"
+              value={password}
+              name="password"
+              ref={input => (this.passwordRef = input)}
+              onKeyDown={this.handleKeyDown}
+              placeholder="Password"
+              tabIndex={0}
+            />
+            <input
+              type="password"
+              value={username}
+              name="username"
+              ref={input => (this.usernameRef = input)}
+              onKeyDown={this.handleKeyDown}
+              placeholder="Username"
+              tabIndex={1}
+            />
+            <button onClick="">Log in</button>
+          </form>
+        </div>
       </div>
     );
   }

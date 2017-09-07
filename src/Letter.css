@@ -2,14 +2,14 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 30px;
+  height: 25px;
+  border-radius: 3px;
   font-size: 18px;
   line-height: 30px;
   border: 2px solid transparent;
 }
 
 .Letter-selected {
-  border-color: red;
-  background-color: rgba(255, 0, 0, 0.2);
+  border-color: #68aec9;
+  background-color: #68aec9;
 }

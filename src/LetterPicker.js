@@ -6,6 +6,9 @@ class LetterPicker extends Component {
   static sentences = [
     'Welcome to the crazy login form. Have "fun" logging in.',
     'This is a long sentence containing other characters.',
+    'Hello, I am a happybara and I will make your life hell.',
+    'Still have not logged in? Maybe you should try a bit harder.',
+    'Logging in is easy, logging in is fun.',
   ];
   static specialCharacters = ['\u25C0', '@', '.', '_', '-', '/'];
 
@@ -16,15 +19,10 @@ class LetterPicker extends Component {
   };
 
   componentWillMount() {
-    const letterArray = [
-      ...LetterPicker.sentences[
-        Math.floor(Math.random() * LetterPicker.sentences.length)
-      ],
-      ...LetterPicker.specialCharacters,
-    ];
+    const wordArray = this.composeWordArray(this.props);
     setTimeout(this.moveLetter, this.props.speed);
 
-    this.setState({ letterArray, goLeft: this.props.goLeft });
+    this.setState({ wordArray, goLeft: this.props.goLeft });
   }
 
   componentWillUnmount() {
@@ -42,17 +40,34 @@ class LetterPicker extends Component {
       newState.speed = nextProps.speed;
     }
 
+    if (nextProps.selectedSentence !== this.props.selectedSentence) {
+      newState.wordArray = this.composeWordArray(nextProps);
+      newState.currentLetter = 0;
+    }
+
     this.setState(newState);
   }
+
+  composeWordArray = (props = this.props) => {
+    const words = LetterPicker.sentences[props.selectedSentence].split(' ');
+
+    return [
+      ...words.map(word => [...word, ' ']),
+      LetterPicker.specialCharacters,
+    ];
+  };
+
+  composeLetterArray = words =>
+    words.reduce((flattened, word) => flattened.concat(word), []);
 
   moveLetter = () => {
     if (!this.state.timeoutRunning) {
       return;
     }
 
-    const { letterArray, currentLetter } = this.state;
+    const { wordArray, currentLetter } = this.state;
 
-    if (!letterArray) {
+    if (!wordArray) {
       return;
     }
 
@@ -62,6 +77,8 @@ class LetterPicker extends Component {
     if (Math.random() > 0.99) {
       goLeft = !goLeft;
     }
+
+    const letterArray = this.composeLetterArray(wordArray);
 
     let newLetter = goLeft ? currentLetter - 1 : currentLetter + 1;
     newLetter = (newLetter + letterArray.length) % letterArray.length;
@@ -73,15 +90,23 @@ class LetterPicker extends Component {
   };
 
   render() {
+    let currIndex = 0;
+
     return (
-      <div className="LetterPicker">
-        {this.state.letterArray.map((letter, index) =>
-          <Letter
-            key={`${index}-${letter}`}
-            letter={letter}
-            selected={index === this.state.currentLetter}
-          />,
-        )}
+      <div className="LetterPicker panel">
+        <div className="LetterPicker-inside">
+          {this.state.wordArray.map((word, wordIndex) =>
+            <div className="LetterPicker-word" key={`${wordIndex}-${word}`}>
+              {word.map((letter, letterIndex) =>
+                <Letter
+                  key={`${letterIndex}-${letter}`}
+                  letter={letter}
+                  selected={currIndex++ === this.state.currentLetter}
+                />,
+              )}
+            </div>,
+          )}
+        </div>
       </div>
     );
   }
