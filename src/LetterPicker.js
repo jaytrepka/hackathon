@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import './LetterPicker.css';
-import Letter from './Letter';
+import React, { Component } from "react";
+import "./LetterPicker.css";
+import Letter from "./Letter";
 
 class LetterPicker extends Component {
   static sentences = [
-    'Welcome to the crazy login form. Have "fun" logging in.',
-    'This is a long sentence containing other characters.',
-    'Hello, I am a happybara and I will make your life hell.',
-    'Still have not logged in? Maybe you should try a bit harder.',
-    'Logging in is easy, logging in is fun.',
+    'Welcome to the crazy login form. Have "fun" logging in. 1789',
+    "This is a long sentence containing other characters.",
+    "Hello, I am a happybara and I will make your life hell.",
+    "Still have not logged in? Maybe you should try a bit harder.",
+    "Logging in is easy, logging in is fun."
   ];
-  static specialCharacters = ['\u25C0', '@', '.', '_', '-', '/'];
+  static specialCharacters = ["\u25C0", "@", ".", "_", "-", "/"];
 
   state = {
     currentLetter: 0,
     goLeft: false,
-    timeoutRunning: true,
+    timeoutRunning: true
   };
 
   componentWillMount() {
@@ -49,11 +49,11 @@ class LetterPicker extends Component {
   }
 
   composeWordArray = (props = this.props) => {
-    const words = LetterPicker.sentences[props.selectedSentence].split(' ');
+    const words = LetterPicker.sentences[props.selectedSentence].split(" ");
 
     return [
-      ...words.map(word => [...word, ' ']),
-      LetterPicker.specialCharacters,
+      ...words.map(word => [...word, " "]),
+      LetterPicker.specialCharacters
     ];
   };
 
@@ -102,9 +102,9 @@ class LetterPicker extends Component {
                   key={`${letterIndex}-${letter}`}
                   letter={letter}
                   selected={currIndex++ === this.state.currentLetter}
-                />,
+                />
               )}
-            </div>,
+            </div>
           )}
         </div>
       </div>

@@ -5,12 +5,15 @@ import Tip from "./Tip";
 
 class App extends Component {
   state = {
+    errorUsername: false,
+    errorPassword: false,
     password: "",
     username: "",
     letter: "",
     goLeft: false,
     speed: 500,
-    selectedSentence: 0
+    selectedSentence: 0,
+    success: false
   };
 
   handleLetterChange = letter => {
@@ -20,7 +23,7 @@ class App extends Component {
   handleKeyDown = event => {
     const { key, target: { name } } = event;
     console.log(key);
-
+    this.setState({ errorPassword: false, errorUsername: false });
     if (key !== "Tab" && key !== "Enter") {
       event.preventDefault();
     }
@@ -92,43 +95,100 @@ class App extends Component {
     this.usernameRef.focus();
   }
 
+  isEmailValid(email) {
+    return !!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+  }
+
+  isPasswordValid(password) {
+    return !!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]{6,}$/);
+  }
+
+  handleSubmit(e) {
+    const { errorPassword, errorUsername, password, username } = this.state;
+    e.preventDefault();
+
+    const isPasswordValid = this.isPasswordValid(password);
+    const isEmailValid = this.isEmailValid(username);
+    if (isPasswordValid && isEmailValid) {
+      this.setState({ success: true });
+    } else {
+      this.setState({
+        errorPassword: !isPasswordValid,
+        errorUsername: !isEmailValid
+      });
+    }
+  }
+
   render() {
-    const { password, username, goLeft, selectedSentence, speed } = this.state;
+    const {
+      errorPassword,
+      errorUsername,
+      password,
+      username,
+      goLeft,
+      selectedSentence,
+      speed,
+      success
+    } = this.state;
 
     return (
       <div className="App">
-        <LetterPicker
-          onChange={this.handleLetterChange}
-          goLeft={goLeft}
-          speed={speed}
-          selectedSentence={selectedSentence}
-        />
+        {!success &&
+          <LetterPicker
+            onChange={this.handleLetterChange}
+            goLeft={goLeft}
+            speed={speed}
+            selectedSentence={selectedSentence}
+          />}
 
-        <div className="App-form panel">
-          <h1>Log in if you dare...</h1>
-          <form autoComplete="off">
-            <input
-              type="text"
-              value={password}
-              name="password"
-              ref={input => (this.passwordRef = input)}
-              onKeyDown={this.handleKeyDown}
-              placeholder="Password"
-              tabIndex={0}
-            />
-            <input
-              type="password"
-              value={username}
-              name="username"
-              ref={input => (this.usernameRef = input)}
-              onKeyDown={this.handleKeyDown}
-              placeholder="Username"
-              tabIndex={1}
-            />
-            <button onClick="">Log in</button>
-          </form>
-          <Tip />
-        </div>
+        {!success &&
+          <div className="App-form panel">
+            <h1>Log in if you dare...</h1>
+            <form autoComplete="off" onSubmit={e => this.handleSubmit(e)}>
+              <input
+                type="text"
+                value={password}
+                name="password"
+                ref={input => (this.passwordRef = input)}
+                onKeyDown={this.handleKeyDown}
+                placeholder="Password"
+                tabIndex={0}
+                className={errorPassword ? "error" : ""}
+              />
+              {errorPassword &&
+                <div className="error-message">
+                  Passwords must be at least 6 characters in length and must
+                  contain:
+                  <br />- a minimum of 1 lower case letter [a-z]
+                  <br />- a minimum of 1 upper case letter [A-Z]
+                  <br />- a minimum of 1 numeric character [0-9]
+                </div>}
+              <input
+                type="password"
+                value={username}
+                name="username"
+                ref={input => (this.usernameRef = input)}
+                onKeyDown={this.handleKeyDown}
+                placeholder="Username"
+                tabIndex={1}
+                className={errorUsername ? "error" : ""}
+              />
+              {errorUsername &&
+                <div className="error-message">
+                  Please insert a valid email address
+                </div>}
+              <button type="submit">Log in</button>
+            </form>
+            <Tip />
+          </div>}
+        {success &&
+          <div className="success-screen">
+            <div className="hand-icon" />
+            <div className="congrats-header">Congratulations!</div>
+            <div className="congrats-text">
+              {" "}You’ve successfully passed challenge
+            </div>
+          </div>}
       </div>
     );
   }

@@ -64,3 +64,61 @@ button {
   margin-top: 20px;
   cursor: pointer;
 }
+
+input.error {
+  border: 1.45px solid #eb4c63;
+}
+
+.error-message {
+  background-color: #eb4c63;
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 10px 25px;
+  border-radius: 7px;
+  margin-top: -5px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.error-message::after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  top: -10px;
+  left: 20px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #eb4c63;
+}
+
+.success-screen {
+  height: 400px;
+  width: 600px;
+  padding: 90px 60px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1.45px solid #d9d9d9;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 39px 7px rgba(174, 174, 174, 0.5);
+}
+
+.congrats-header {
+  color: #68aec9;
+  font-size: 29px;
+  font-weight: 600;
+  padding-top: 25px;
+  line-height: 39px;
+}
+.congrats-text {
+  color: #333333;
+  font-size: 22px;
+  line-height: 30px;
+}
+.hand-icon {
+  width: 156px;
+  height: 120px;
+  background: url(./clap.svg) center center no-repeat;
+}

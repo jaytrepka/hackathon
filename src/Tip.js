@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./Tip.css";
-import Letter from "./Letter";
 
 class Tip extends Component {
   state = {
