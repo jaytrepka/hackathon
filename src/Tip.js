@@ -21,7 +21,7 @@ class Tip extends Component {
     return (
       <div className="tip-wrap">
         <div
-          className="tip-icon close"
+          className={`tip-icon close ${open ? 'open' : ''}`}
           onClick={() => this.setState({ open: true })}
         />
         <div
@@ -30,7 +30,7 @@ class Tip extends Component {
         />
         <div className={`tip-modal-wrap ${open ? 'open' : ''}`}>
           <div className="tip-modal">
-            <div className="tip-icon open" />
+            <div className="tip-icon modal" />
             <div className="tips">
               <div className="tip-header">Tips</div>
               <div className="tip">

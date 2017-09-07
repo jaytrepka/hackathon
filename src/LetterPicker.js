@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import "./LetterPicker.css";
-import Letter from "./Letter";
+import React, { Component } from 'react';
+import './LetterPicker.css';
+import Letter from './Letter';
 
 class LetterPicker extends Component {
   static sentences = [
-    "WELCOME TO OUR NEW LOG IN SITE! We are pleased to announce that our log in website is now live! The site has been designed and coded by gentle and lovely people from @Happybaras, to deliver you a truly awful user experience.",
-    "The capybara (@Hydrochoerus hydrochaeris) is the largest living rodent in the world! Also called chigüire, it is a member of the genus Hydrochoerus, of which the only 1 other extant member is the lesser capybara. Its close relatives include guinea pigs and rock cavies, and it is more distantly related to the agouti, the chinchilla, and the coypu.",
-    "Capybaras are not the right pets for most people, or even for very many people. They require a tremendous amount of time and attention, they can be aggressive, their teeth are extremely sharp and they need a pool for swimming,” writes @Ms.Typaldos (13. 08. 1564)",
-    "In the wild, capybaras are social animals who live in herds. Other 2 animals, and their human owners fill those social needs when capybaras are kept as pets.",
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"#$%&'()*+,-./:;<>√@!?“§±=_-^[}]{~"
+    'WELCOME TO OUR NEW LOG IN SITE! We are pleased to announce that our log in website is now live! The site has been designed and coded by gentle and lovely people from @Happybaras, to deliver you a truly awful user experience.',
+    'The capybara (@Hydrochoerus hydrochaeris) is the largest living rodent in the world! Also called chigüire, it is a member of the genus Hydrochoerus, of which the only 1 other extant member is the lesser capybara.',
+    'Capybaras are not the right pets for most people, or even for very many people. They require a tremendous amount of time and attention, they can be aggressive, their teeth are extremely sharp and they need a pool for swimming,” writes @Ms.Typaldos (13. 08. 1564)',
+    'In the wild, capybaras are social animals who live in herds. Other 2 animals, and their human owners fill those social needs when capybaras are kept as pets.',
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"#$%&\'()*+,-./:;<>√@!?“§±=_-^[}]{~',
   ];
-  static specialCharacters = ["\u25C0"];
+  static specialCharacters = ['\u25C0'];
 
   state = {
     currentLetter: 0,
     goLeft: false,
-    timeoutRunning: true
+    timeoutRunning: true,
   };
 
   componentWillMount() {
@@ -49,11 +49,11 @@ class LetterPicker extends Component {
   }
 
   composeWordArray = (props = this.props) => {
-    const words = LetterPicker.sentences[props.selectedSentence].split(" ");
+    const words = LetterPicker.sentences[props.selectedSentence].split(' ');
 
     return [
-      ...words.map(word => [...word, " "]),
-      LetterPicker.specialCharacters
+      ...words.map(word => [...word, ' ']),
+      LetterPicker.specialCharacters,
     ];
   };
 
@@ -102,9 +102,9 @@ class LetterPicker extends Component {
                   key={`${letterIndex}-${letter}`}
                   letter={letter}
                   selected={currIndex++ === this.state.currentLetter}
-                />
+                />,
               )}
-            </div>
+            </div>,
           )}
         </div>
       </div>

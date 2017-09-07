@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import "./App.css";
-import LetterPicker from "./LetterPicker";
-import Tip from "./Tip";
-import EyeIcon from "./EyeIcon";
+import React, { Component } from 'react';
+import './App.css';
+import LetterPicker from './LetterPicker';
+import Tip from './Tip';
+import EyeIcon from './EyeIcon';
 
 class App extends Component {
   state = {
-    errorUsername: false,
+    errorEmail: false,
     errorPassword: false,
     isPasswordVisible: false,
     normalTyping: false,
-    password: "",
-    username: "",
-    letter: "",
+    password: '',
+    email: '',
+    letter: '',
     goLeft: false,
     speed: 500,
     selectedSentence: 0,
     success: false,
-    numberOfTries: 0
+    numberOfTries: 0,
   };
 
   handleLetterChange = letter => {
@@ -26,8 +26,8 @@ class App extends Component {
 
   handleKeyDown = event => {
     const { key, target: { name } } = event;
-    this.setState({ errorPassword: false, errorUsername: false });
-    if (key === ";") {
+    this.setState({ errorPassword: false, errorEmail: false });
+    if (key === ';') {
       this.setState({ normalTyping: !this.state.normalTyping });
       event.preventDefault();
       return;
@@ -35,75 +35,75 @@ class App extends Component {
     if (this.state.normalTyping) {
       return;
     }
-    if (key !== "Tab" && key !== "Enter") {
+    if (key !== 'Tab' && key !== 'Enter') {
       event.preventDefault();
     }
 
-    if (key === "ArrowLeft") {
+    if (key === 'ArrowLeft') {
       this.setState({ goLeft: true });
       return;
     }
 
-    if (key === "ArrowRight") {
+    if (key === 'ArrowRight') {
       this.setState({ goLeft: false });
       return;
     }
 
-    if (key === "ArrowUp") {
+    if (key === 'ArrowUp') {
       const newSpeed = Math.max(100, this.state.speed - 100);
       this.setState({ speed: newSpeed });
       return;
     }
 
-    if (key === "ArrowDown") {
+    if (key === 'ArrowDown') {
       const newSpeed = Math.min(800, this.state.speed + 100);
       this.setState({ speed: newSpeed });
       return;
     }
 
-    if ([..."qwert"].indexOf(key) > -1) {
+    if ([...'qwert'].indexOf(key) > -1) {
       this.setState({ selectedSentence: 0 });
       return;
     }
 
-    if ([..."yuiop"].indexOf(key) > -1) {
+    if ([...'yuiop'].indexOf(key) > -1) {
       this.setState({ selectedSentence: 1 });
       return;
     }
 
-    if ([..."asdfg"].indexOf(key) > -1) {
+    if ([...'asdfg'].indexOf(key) > -1) {
       this.setState({ selectedSentence: 2 });
       return;
     }
 
-    if ([..."hjklnm"].indexOf(key) > -1) {
+    if ([...'hjklnm'].indexOf(key) > -1) {
       this.setState({ selectedSentence: 3 });
       return;
     }
 
-    if ([..."zxcvb"].indexOf(key) > -1) {
+    if ([...'zxcvb'].indexOf(key) > -1) {
       this.setState({ selectedSentence: 4 });
       return;
     }
 
-    if (key !== " " && key !== "Backspace" && key !== "Delete") {
+    if (key !== ' ' && key !== 'Backspace' && key !== 'Delete') {
       return;
     }
 
     let newValue;
-    if (this.state.letter === "\u25C0") {
+    if (this.state.letter === '\u25C0') {
       newValue = this.state[name].substring(1);
     } else {
       newValue = this.state.letter + this.state[name];
     }
 
     this.setState({ [name]: newValue }, () =>
-      this[`${name}Ref`].setSelectionRange(0, 0)
+      this[`${name}Ref`].setSelectionRange(0, 0),
     );
   };
 
   componentDidMount() {
-    this.usernameRef.focus();
+    this.passwordRef.focus();
   }
 
   isEmailValid(email) {
@@ -115,40 +115,40 @@ class App extends Component {
   }
 
   handleSubmit(e) {
-    const { password, username, numberOfTries } = this.state;
+    const { password, email, numberOfTries } = this.state;
     e.preventDefault();
 
     const isPasswordValid = this.isPasswordValid(password);
-    const isEmailValid = this.isEmailValid(username);
+    const isEmailValid = this.isEmailValid(email);
     if (isPasswordValid && isEmailValid) {
       this.setState({ success: true });
     } else {
       this.setState({
         errorPassword: !isPasswordValid,
-        errorUsername: !isEmailValid,
-        numberOfTries: numberOfTries + 1
+        errorEmail: !isEmailValid,
+        numberOfTries: numberOfTries + 1,
       });
     }
   }
 
   handleShowPassword() {
     this.setState(prevState => ({
-      isPasswordVisible: !prevState.isPasswordVisible
+      isPasswordVisible: !prevState.isPasswordVisible,
     }));
   }
   render() {
     const {
       errorPassword,
-      errorUsername,
+      errorEmail,
       isPasswordVisible,
       normalTyping,
       password,
-      username,
+      email,
       goLeft,
       selectedSentence,
       speed,
       success,
-      numberOfTries
+      numberOfTries,
     } = this.state;
 
     return (
@@ -173,7 +173,7 @@ class App extends Component {
                 onKeyDown={this.handleKeyDown}
                 placeholder="Password"
                 tabIndex={0}
-                className={errorPassword ? "error" : ""}
+                className={errorPassword ? 'error' : ''}
                 onChange={e => {
                   if (normalTyping) {
                     this.setState({ password: e.target.value });
@@ -188,19 +188,19 @@ class App extends Component {
                   <br />- a minimum of 1 upper case letter [A-Z]
                   <br />- a minimum of 1 numeric character [0-9]
                 </div>}
-              <div className="App-username">
+              <div className="App-email">
                 <input
-                  type={isPasswordVisible ? "text" : "password"}
-                  value={username}
-                  name="username"
-                  ref={input => (this.usernameRef = input)}
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  value={email}
+                  name="email"
+                  ref={input => (this.emailRef = input)}
                   onKeyDown={this.handleKeyDown}
-                  placeholder="Username"
+                  placeholder="Email"
                   tabIndex={1}
-                  className={errorUsername ? "error" : ""}
+                  className={errorEmail ? 'error' : ''}
                   onChange={e => {
                     if (normalTyping) {
-                      this.setState({ username: e.target.value });
+                      this.setState({ email: e.target.value });
                     }
                   }}
                 />
@@ -208,7 +208,7 @@ class App extends Component {
                   <EyeIcon closed={isPasswordVisible} />
                 </div>
               </div>
-              {errorUsername &&
+              {errorEmail &&
                 <div className="error-message">
                   Please insert a valid email address
                 </div>}
@@ -227,11 +227,11 @@ class App extends Component {
               className="again"
               onClick={() => {
                 this.setState({
-                  username: "",
-                  password: "",
+                  email: '',
+                  password: '',
                   errorPassword: false,
-                  errorUsername: false,
-                  success: false
+                  errorEmail: false,
+                  success: false,
                 });
               }}
             >

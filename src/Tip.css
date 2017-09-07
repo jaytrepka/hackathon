@@ -8,13 +8,21 @@
   border: 1.45px solid #d9d9d9;
   background-color: #ffffff;
   box-shadow: 0 3px 39px 7px rgba(174, 174, 174, 0.5);
+  opacity: 1;
+  z-index: 10;
+  transition: opacity .5s .5s ease-in-out;
+}
+.tip-icon.open {
+  opacity: 0;
+  z-index: -1;
+  transition: opacity .5s ease-in-out;
 }
 .tip-icon.close {
   position: absolute;
   right: -108px;
   top: -108px;
 }
-.tip-icon.open {
+.tip-icon.modal {
   margin-right: 25px;
   background-color: #f6f7f9;
   box-shadow: none;

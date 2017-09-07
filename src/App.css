@@ -29,11 +29,11 @@ form {
   font-size: large;
 }
 
-.App-username {
+.App-email {
   position: relative;
 }
 
-.App-username .eye {
+.App-email .eye {
   position: absolute;
   right: 22px;
   top: 22px;
