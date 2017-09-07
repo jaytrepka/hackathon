@@ -136,3 +136,23 @@ input.error {
 .again {
   margin-top: 50px;
 }
+
+.footer {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  color: #333333;
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.head {
+  background: url(./capybara-head.svg) 0 0 no-repeat;
+  background-size: contain;
+  width: 18px;
+  height: 20px;
+  margin-left: 10px;
+}
