@@ -1,0 +1,68 @@
+.tip-wrap {
+}
+.tip-icon {
+  width: 54px;
+  height: 54px;
+  background: url(./big-light.svg) center center no-repeat;
+  border-radius: 55px;
+  border: 1.45px solid #d9d9d9;
+  background-color: #ffffff;
+  box-shadow: 0 3px 39px 7px rgba(174, 174, 174, 0.5);
+}
+.tip-icon.close {
+  position: absolute;
+  right: -108px;
+  top: -108px;
+}
+.tip-icon.open {
+  margin-right: 25px;
+}
+.tip-modal-wrap {
+  position: absolute;
+  right: -108px;
+  top: -108px;
+  opacity: 0;
+  width: 750px;
+  overflow: hidden;
+  transition: opacity .5s ease-in-out;
+  z-index: -1;
+}
+.tip-modal-wrap.open {
+  opacity: 1;
+  z-index: 10;
+  transition: opacity .5s ease-in-out;
+}
+.tip-modal {
+  min-width: 750px;
+  display: flex;
+  position: relative;
+  padding: 45px 35px 35px;
+  border: 1.45px solid #d9d9d9;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 39px 7px rgba(174, 174, 174, 0.5);
+}
+.tip-header {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 29px;
+}
+.tip {
+  color: #333333;
+  font-size: 16px;
+  line-height: 29px;
+}
+.tip span {
+  text-decoration: underline;
+  margin-right: 10px;
+}
+.close {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  color: #000;
+  font-weight: 600;
+  font-size: 22px;
+  cursor: pointer;
+}
