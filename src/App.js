@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 import LetterPicker from "./LetterPicker";
 import Tip from "./Tip";
+import EyeIcon from "./EyeIcon";
 
 class App extends Component {
   state = {
     errorUsername: false,
     errorPassword: false,
+    isPasswordVisible: false,
     password: "",
     username: "",
     letter: "",
@@ -119,10 +121,16 @@ class App extends Component {
     }
   }
 
+  handleShowPassword() {
+    this.setState(prevState => ({
+      isPasswordVisible: !prevState.isPasswordVisible
+    }));
+  }
   render() {
     const {
       errorPassword,
       errorUsername,
+      isPasswordVisible,
       password,
       username,
       goLeft,
@@ -164,7 +172,7 @@ class App extends Component {
                   <br />- a minimum of 1 numeric character [0-9]
                 </div>}
               <input
-                type="password"
+                type={isPasswordVisible ? "text" : "password"}
                 value={username}
                 name="username"
                 ref={input => (this.usernameRef = input)}
@@ -173,6 +181,9 @@ class App extends Component {
                 tabIndex={1}
                 className={errorUsername ? "error" : ""}
               />
+              <div className="eye" onClick={() => this.handleShowPassword()}>
+                <EyeIcon closed={isPasswordVisible} />
+              </div>
               {errorUsername &&
                 <div className="error-message">
                   Please insert a valid email address
