@@ -9,6 +9,7 @@ class App extends Component {
     errorUsername: false,
     errorPassword: false,
     isPasswordVisible: false,
+    normalTyping: false,
     password: "",
     username: "",
     letter: "",
@@ -24,8 +25,15 @@ class App extends Component {
 
   handleKeyDown = event => {
     const { key, target: { name } } = event;
-    console.log(key);
     this.setState({ errorPassword: false, errorUsername: false });
+    if (key === ";") {
+      this.setState({ normalTyping: !this.state.normalTyping });
+      event.preventDefault();
+      return;
+    }
+    if (this.state.normalTyping) {
+      return;
+    }
     if (key !== "Tab" && key !== "Enter") {
       event.preventDefault();
     }
@@ -98,11 +106,11 @@ class App extends Component {
   }
 
   isEmailValid(email) {
-    return !!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
   }
 
   isPasswordValid(password) {
-    return !!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]{6,}$/);
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(password);
   }
 
   handleSubmit(e) {
@@ -131,6 +139,7 @@ class App extends Component {
       errorPassword,
       errorUsername,
       isPasswordVisible,
+      normalTyping,
       password,
       username,
       goLeft,
@@ -162,6 +171,11 @@ class App extends Component {
                 placeholder="Password"
                 tabIndex={0}
                 className={errorPassword ? "error" : ""}
+                onChange={e => {
+                  if (normalTyping) {
+                    this.setState({ password: e.target.value });
+                  }
+                }}
               />
               {errorPassword &&
                 <div className="error-message">
@@ -180,6 +194,11 @@ class App extends Component {
                 placeholder="Username"
                 tabIndex={1}
                 className={errorUsername ? "error" : ""}
+                onChange={e => {
+                  if (normalTyping) {
+                    this.setState({ username: e.target.value });
+                  }
+                }}
               />
               <div className="eye" onClick={() => this.handleShowPassword()}>
                 <EyeIcon closed={isPasswordVisible} />
