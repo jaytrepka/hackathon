@@ -216,8 +216,22 @@ class App extends Component {
             <div className="hand-icon" />
             <div className="congrats-header">Congratulations!</div>
             <div className="congrats-text">
-              {" "}You’ve successfully passed challenge
+              You've successfully passed challenge
             </div>
+            <button
+              className="again"
+              onClick={() => {
+                this.setState({
+                  username: "",
+                  password: "",
+                  errorPassword: false,
+                  errorUsername: false,
+                  success: false
+                });
+              }}
+            >
+              Try again
+            </button>
           </div>}
       </div>
     );

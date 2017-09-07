@@ -16,11 +16,14 @@
 }
 .tip-icon.open {
   margin-right: 25px;
+  background-color: #f6f7f9;
+  box-shadow: none;
+  border: 1.45px solid #f6f7f9;
 }
 .tip-modal-wrap {
   position: absolute;
-  right: -108px;
-  top: -108px;
+  right: -122px;
+  top: -120px;
   opacity: 0;
   width: 750px;
   overflow: hidden;
