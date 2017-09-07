@@ -21,11 +21,22 @@
   position: relative;
 }
 
-.App-form {
+form {
+  width: 100%;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.App-username {
+  position: relative;
+}
+
+.App-username .eye {
+  position: absolute;
+  right: 22px;
+  top: 22px;
 }
 
 h1 {
