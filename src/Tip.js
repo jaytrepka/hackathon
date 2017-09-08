@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './Tip.css';
+import React, { Component } from "react";
+import "./Tip.css";
 
 class Tip extends Component {
   static tips = [
@@ -7,38 +7,39 @@ class Tip extends Component {
     'Use "Arrow Down/Up" key to change speed',
     'Use "Arrow Left/Right" key to change',
     'Use "Letter" keys to change sentence',
-    'Inputs are filled from right to left',
+    "Inputs are filled from right to left"
   ];
 
   state = {
-    open: false,
+    open: false
   };
 
   render() {
     const { open } = this.state;
-    const tipIndex = (this.props.numberOfTries - 2) % 5;
 
     return (
       <div className="tip-wrap">
         <div
-          className={`tip-icon close ${open ? 'open' : ''}`}
+          className={`tip-icon close ${open ? "open" : ""}`}
           onClick={() => this.setState({ open: true })}
         />
         <div
-          className={`tip-modal-overlay ${open ? 'open' : ''}`}
+          className={`tip-modal-overlay ${open ? "open" : ""}`}
           onClick={() => this.setState({ open: false })}
         />
-        <div className={`tip-modal-wrap ${open ? 'open' : ''}`}>
+        <div className={`tip-modal-wrap ${open ? "open" : ""}`}>
           <div className="tip-modal">
             <div className="tip-icon modal" />
             <div className="tips">
               <div className="tip-header">Tips</div>
-              <div className="tip">
-                <span>
-                  Tip no. {tipIndex + 1}:
-                </span>
-                {Tip.tips[tipIndex]}
-              </div>
+              {Tip.tips.map((tip, i) =>
+                <div className="tip">
+                  <span>
+                    Tip no. {i + 1}:
+                  </span>
+                  {tip}
+                </div>
+              )}
             </div>
             <div
               className="close"
